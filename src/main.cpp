@@ -1,34 +1,54 @@
 #include <iostream>
 #include <vector>
-void fillingArray(int (&arr)[5][5][10]){
-  for (int i = 0; i < 5; i++){
-    for (int j = 0; j < 5; j++) {
-      for(int k = 0; k < 10; k++){
-        arr[i][j][k]=0;
-      }
-    }
-  }
-}
 
-void printArr(int (&arr)[5][5][10]){
-  for(int i = 0; i < 5; i++){
-    for(int j = 0; j < 5; j++){
-      for(int k = 0; k < 10; k++){
-        std::cout << arr[i][j][k] << " ";
-      }
-    }
+void fieldSection(const std::vector<std::vector <std::vector<int>>> v, int sectionNumber ){
     std::cout << std::endl;
-  }
+    for(int i = 0; i < v.size(); ++i)
+    {
+        for(int j = 0; j < v[i].size(); ++j)
+        {
+            std::cout << v[i][j][sectionNumber] << " ";
+        }
+        std::cout << std::endl;
+    }
 }
 
-int main(){
-  std::cout << "Almost-Minecraft" << std::endl;
-  int world[5][5][10];
+void fillField(std::vector<std::vector <std::vector<int>>> &v){
+    int height;
+    for(int i = 0; i < v.size(); ++i){
+        for(int j = 0; j < v[i].size(); ++j){
+            std::cout << "post height " << i << ":" << j << " - ";
+            std::cin >> height;
 
-  fillingArray(world);
-  printArr(world);
-  return 0;
+            while(height > 10 || height < 0){
+                std::cout << "Incorrect input!!!" << std::endl;
+                std::cin >> height;
+            }
+            for(int k = 0; k < height; ++k){
+                v[i][j][k] = 1;
+            }
+        }
+    }
 }
+
+int main()
+{
+   std::cout << "Almost-Minecraft" << std::endl;
+     std::vector<std::vector <std::vector<int>>> buildings(5, std::vector<std::vector<int>>(5, std::vector <int> (10)) );
+
+     fillField(buildings);
+     std::cout << std::endl << "Enter section number: ";
+     int sectionNumber;
+     std::cin >> sectionNumber;
+     while(sectionNumber > 9 || sectionNumber < 0){
+         std::cout << "Incorrect section number!" << std::endl;
+         std::cin >> sectionNumber;
+     }
+     fieldSection(buildings, sectionNumber);
+
+    return 0;
+}
+
 
 // Почти-Майнкрафт
 
